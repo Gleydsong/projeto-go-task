@@ -1,10 +1,12 @@
-<form class="rounded-xl overflow-hidden bg-white">
+<form
+  class="rounded-xl overflow-hidden bg-white"
+  [formGroup]="taksform"
+  (ngSubmit)="onformsubmit()"
+>
   <div class="flex gap-1 items center p-4">
     <img src="images/icon-new-task.svg" />
     <h1 class="font-semibold text-lg">
-      {{
-        _data.mode === "create" ? "Criar tarefa" : "Editar tarefa" + "Tarefa"
-      }}
+      {{ (_data.mode === "create" ? "Criar" : "Editar") + " uma Tarefa" }}
     </h1>
     <img class="ml-auto cursor-pointer" src="images/icon-close.svg" />
   </div>
@@ -15,6 +17,7 @@
         class="w-full border border-[#D1D5D8] p-3 rounded-lg text-sm font-light text-[#89919F]"
         type="text"
         placeholder="Descreva o que deverá ser feito"
+        formControlName="name"
       />
       <p class="font-semibold text-sm text-red-500">
         O campo é obrigatório e precisa ter no minímo 10 caracteres.
@@ -26,9 +29,10 @@
         class="w-full border border-[#D1D5D8] p-3 rounded-lg text-sm font-light text-[#89919F]"
         type="text"
         placeholder="Adicione uma descrição"
+        formControlName="description"
       />
       <p class="font-semibold text-sm text-red-500">
-        O campo é obrigatório e precisa ter no minímo 10 caracteres.
+        O campo é obrigatório e precisa ter no minímo 50 caracteres.
       </p>
     </div>
   </div>
@@ -40,10 +44,15 @@
       Cancelar
     </button>
     <button
-      class="py-3 px-4 bg-[#2A89EF] text-white rounded-xl text-sm font-semibold cursor-pointer active:translate-y-1 transition-transform duration-75 shadow-md shadow-blue-500/50"
+      [ngClass]="{
+        'py-3 px-4 rounded-xl text-white text-sm font-semibold cursor-pointer': true,
+        'bg-[#D7D8D8] cursor-not-allowed': taksform.invalid,
+        'bg-[#2A89EF] shadow-md shadow-blue-500/50 active:translate-y-1 transition-transform duration-75': !taksform.invalid
+      }"
       type="submit"
+      [disabled]="taksform.invalid"
     >
-      {{ _data.mode === "create" ? "Criar uma Tarefa" : "Salvar alterações" }}
+      {{ _data.mode === 'create' ? 'Criar uma Tarefa' : 'Salvar alterações' }}
     </button>
   </div>
 </form>
