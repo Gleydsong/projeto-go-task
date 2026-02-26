@@ -47,12 +47,13 @@
       [ngClass]="{
         'py-3 px-4 rounded-xl text-white text-sm font-semibold cursor-pointer': true,
         'bg-[#D7D8D8] cursor-not-allowed': taksform.invalid,
-        'bg-[#2A89EF] shadow-md shadow-blue-500/50 active:translate-y-1 transition-transform duration-75': !taksform.invalid
+        'bg-[#2A89EF] shadow-md shadow-blue-500/50 active:translate-y-1 transition-transform duration-75':
+          !taksform.invalid
       }"
       type="submit"
       [disabled]="taksform.invalid"
     >
-      {{ _data.mode === 'create' ? 'Criar uma Tarefa' : 'Salvar alterações' }}
+      {{ _data.mode === "create" ? "Criar uma Tarefa" : "Salvar alterações" }}
     </button>
   </div>
 </form>
