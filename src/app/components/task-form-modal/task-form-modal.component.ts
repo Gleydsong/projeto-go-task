@@ -1,7 +1,8 @@
-import { DIALOG_DATA } from '@angular/cdk/dialog';
+import { DIALOG_DATA, DialogRef } from '@angular/cdk/dialog';
 import { Component, inject } from '@angular/core';
 import { NgClass } from '@angular/common';
 import { ITaskFormModalData } from '../../interfaces/task-form-modal-data.interface';
+import { ItaskFormControls } from '../../interfaces/task-form-controls.interface';
 import {
   FormControl,
   FormGroup,
@@ -17,6 +18,7 @@ import {
 })
 export class TaskFormModalComponent {
   readonly _data: ITaskFormModalData = inject(DIALOG_DATA);
+  readonly _dialogRef = inject(DialogRef);
   taksform: FormGroup = new FormGroup({
     name: new FormControl(this._data.formvalues.name, [
       Validators.required,
@@ -27,5 +29,11 @@ export class TaskFormModalComponent {
       Validators.minLength(50),
     ]),
   });
-  onformsubmit() {}
+  onformsubmit() {
+    this.closeModal(this.taksform.value);
+  }
+
+  closeModal(formValues: ItaskFormControls | undefined = undefined) {
+    this._dialogRef.close(formValues);
+  }
 }
